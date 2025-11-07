@@ -1,12 +1,50 @@
 import { useState } from "react";
 import scss from "./Auth.module.scss";
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import axios from "axios";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
   const [showLoginPassword, setShowLoginPassword] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const register = async () => {
+    if (
+      !username.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim()
+    ) {
+      alert("Заполните пустые ячейки!");
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert("Пароли не совпадают!");
+      return;
+    }
+    try {
+      await axios.post(`http://localhost:5000/api/v1/auth/register`, {
+        username,
+        email,
+        password,
+      });
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      alert("Регистрация прошла успешно!");
+    } catch (error) {
+      console.error(error);
+      alert("Ошибка при регистрации");
+      console.log(error);
+    }
+  };
+
   return (
     <section className={scss.Auth}>
       <div className="container">
@@ -29,25 +67,26 @@ const Auth = () => {
             {!isLogin ? (
               <div className={scss.registration}>
                 <h1>Create Account</h1>
-                <form className={scss.form}>
+                <div className={scss.form}>
                   <input
                     type="text"
                     name="username"
                     placeholder="Имя пользователя"
-                    required
+                    onChange={(e) => setUsername(e.target.value)}
                   />
+
                   <input
                     type="email"
                     name="email"
                     placeholder="Email"
-                    required
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <div className={scss.passwordField}>
                     <input
                       type={showPassword ? "text" : "password"}
                       name="password"
                       placeholder="Пароль"
-                      required
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <span onClick={() => setShowPassword(!showPassword)}>
                       {showPassword ? <LuEyeOff /> : <LuEye />}
@@ -58,31 +97,25 @@ const Auth = () => {
                       type={showConfirm ? "text" : "password"}
                       name="confirmPassword"
                       placeholder="Подтвердите пароль"
-                      required
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                     <span onClick={() => setShowConfirm(!showConfirm)}>
                       {showConfirm ? <LuEyeOff /> : <LuEye />}
                     </span>
                   </div>
-                  <button type="submit">Зарегистрироваться</button>
-                </form>
+                  <button onClick={register}>Зарегистрироваться</button>
+                </div>
               </div>
             ) : (
               <div className={scss.login}>
                 <h1>Welcome Back</h1>
-                <form className={scss.form}>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    required
-                  />
+                <div className={scss.form}>
+                  <input type="email" name="email" placeholder="Email" />
                   <div className={scss.passwordField}>
                     <input
                       type={showLoginPassword ? "text" : "password"}
                       name="password"
                       placeholder="Пароль"
-                      required
                     />
                     <span
                       onClick={() => setShowLoginPassword(!showLoginPassword)}
@@ -93,8 +126,8 @@ const Auth = () => {
                   <div className={scss.options}>
                     <a href="#">Забыли пароль?</a>
                   </div>
-                  <button type="submit">Войти</button>
-                </form>
+                  <button>Войти</button>
+                </div>
               </div>
             )}
           </div>
