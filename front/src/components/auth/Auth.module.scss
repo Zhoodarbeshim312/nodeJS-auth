@@ -1,0 +1,144 @@
+.Auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #a855f7, #7e22ce);
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .card {
+    background: #fff;
+    padding: 40px 50px;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(124, 58, 237, 0.3);
+    width: 100%;
+    max-width: 430px;
+    transition: all 0.3s ease-in-out;
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 28px;
+      font-weight: 700;
+      color: #6d28d9;
+    }
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      background: #ede9fe;
+      border-radius: 12px;
+      overflow: hidden;
+      button {
+        flex: 1;
+        padding: 12px 0;
+        border: none;
+        background: transparent;
+        font-size: 16px;
+        font-weight: 600;
+        color: #6b21a8;
+        cursor: pointer;
+        transition: all 0.3s;
+        &:hover {
+          background: #ddd6fe;
+        }
+        &.active {
+          background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+          color: white;
+        }
+      }
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      input {
+        padding: 13px 16px;
+        border: 2px solid #ddd6fe;
+        border-radius: 12px;
+        font-size: 15px;
+        transition: 0.25s;
+        background: #faf5ff;
+        &:focus {
+          border-color: #8b5cf6;
+          box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+          outline: none;
+          background: #ffffff;
+        }
+      }
+      button {
+        margin-top: 10px;
+        padding: 12px 0;
+        border: none;
+        background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 18px rgba(124, 58, 237, 0.3);
+        }
+      }
+    }
+    .passwordField {
+      position: relative;
+      width: 100%;
+      input {
+        width: 100%;
+        padding-right: 42px;
+      }
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #8b5cf6;
+        transition: color 0.2s ease;
+        &:hover {
+          color: #7c3aed;
+        }
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+    .options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      a {
+        color: #7c3aed;
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  @media (max-width: 480px) {
+    .card {
+      padding: 25px 20px;
+
+      h1 {
+        font-size: 22px;
+      }
+      .form input {
+        font-size: 14px;
+      }
+    }
+  }
+}
